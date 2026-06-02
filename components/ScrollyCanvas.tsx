@@ -3,22 +3,73 @@
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { useScrollFrames } from "@/lib/useScrollFrames";
-import { preloadImages, FRAME_COUNT } from "@/lib/preloadImages";
-import { useMotionValueEvent } from "framer-motion";
+import { FRAME_COUNT } from "@/lib/preloadImages";
+import { useMotionValueEvent, motion, AnimatePresence } from "framer-motion";
 import { Overlay } from "./Overlay";
 
 export const ScrollyCanvas = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const [loadProgress, setLoadProgress] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [firstFrameDrawn, setFirstFrameDrawn] = useState(false);
   
   const { scrollYProgress, frameIndex } = useScrollFrames(containerRef, FRAME_COUNT);
 
+  // Preload and track progress of all images
   useEffect(() => {
-    const preloaded = preloadImages();
+    if (typeof window === "undefined") return;
+
+    const preloaded: HTMLImageElement[] = [];
+    let loadedCount = 0;
+
+    const handleImageLoad = () => {
+      loadedCount++;
+      const progress = Math.round((loadedCount / FRAME_COUNT) * 100);
+      setLoadProgress(progress);
+      if (loadedCount >= FRAME_COUNT) {
+        setIsLoaded(true);
+      }
+    };
+
+    const handleImageError = () => {
+      loadedCount++;
+      const progress = Math.round((loadedCount / FRAME_COUNT) * 100);
+      setLoadProgress(progress);
+      if (loadedCount >= FRAME_COUNT) {
+        setIsLoaded(true);
+      }
+    };
+
+    for (let i = 0; i < FRAME_COUNT; i++) {
+      const img = new window.Image();
+      const idx = (i + 1).toString().padStart(3, "0");
+      img.src = `/sequence/ezgif-frame-${idx}.png`;
+      
+      if (img.complete) {
+        handleImageLoad();
+      } else {
+        img.onload = handleImageLoad;
+        img.onerror = handleImageError;
+      }
+      preloaded.push(img);
+    }
+
     setImages(preloaded);
   }, []);
+
+  // Lock scroll bar until loading is complete
+  useEffect(() => {
+    if (!isLoaded) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isLoaded]);
 
   const drawFrame = (index: number) => {
     if (!canvasRef.current || images.length === 0) return;
@@ -30,9 +81,6 @@ export const ScrollyCanvas = () => {
     if (!img) return;
 
     const render = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      
       const imgRatio = img.width / img.height;
       const canvasRatio = canvas.width / canvas.height;
       let drawWidth = canvas.width;
@@ -67,11 +115,25 @@ export const ScrollyCanvas = () => {
     requestAnimationFrame(() => drawFrame(Math.round(latest)));
   });
 
+  // Handle resizing and initial frame draw
   useEffect(() => {
     const handleResize = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
       drawFrame(Math.round(frameIndex.get()));
     };
+
     window.addEventListener("resize", handleResize);
+    
+    // Set initial size
+    if (canvasRef.current) {
+      canvasRef.current.width = window.innerWidth;
+      canvasRef.current.height = window.innerHeight;
+    }
     
     if (images.length > 0) {
       drawFrame(0);
@@ -82,7 +144,49 @@ export const ScrollyCanvas = () => {
 
   return (
     <div id="home" ref={containerRef} className="relative h-[500vh] w-full bg-[#121212]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <AnimatePresence>
+        {!isLoaded && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#121212] text-[#FFFCF2]"
+          >
+            {/* Subtle background glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[#EB5E28] opacity-10 blur-[120px] pointer-events-none" />
+            
+            <div className="relative flex flex-col items-center max-w-xs w-full px-6 z-10">
+              {/* Logo / Brand Name */}
+              <motion.h2 
+                animate={{ opacity: [0.6, 1, 0.6] }}
+                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                className="text-lg font-medium tracking-[0.2em] uppercase mb-8 text-[#FFFCF2]/80"
+              >
+                Damalla Yathin
+              </motion.h2>
+              
+              {/* Progress Container */}
+              <div className="w-full bg-[#FFFCF2]/10 h-[3px] rounded-full overflow-hidden mb-3 relative">
+                <motion.div 
+                  className="bg-[#EB5E28] h-full shadow-[0_0_10px_#EB5E28]"
+                  style={{ width: `${loadProgress}%` }}
+                  transition={{ duration: 0.1 }}
+                />
+              </div>
+              
+              {/* Progress Percentage */}
+              <span className="text-xs font-mono tracking-widest text-[#CCC5B9]">
+                {loadProgress}% LOADED
+              </span>
+              
+              <p className="text-[10px] text-[#CCC5B9]/50 tracking-wider uppercase mt-8 text-center">
+                Preparing Interactive Experience
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="relative sticky top-0 h-screen w-full overflow-hidden">
         {/* Prioritize the first frame for immediate loading before the canvas is ready */}
         <Image
           src="/sequence/ezgif-frame-001.png"
