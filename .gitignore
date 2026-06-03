@@ -40,3 +40,14 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 Node_modul
+
+# Local raw media dumps & files exceeding 100MB
+/Videos/
+/Pins/
+/Task 2 dump/
+/Task 3 dump/
+/college work/
+/linkedin-video.mp4
+/ChatGPT Image*.png
+public/videos/Ai_shortfilm.mp4
+public/videos/Savara vvAi edit.mp4

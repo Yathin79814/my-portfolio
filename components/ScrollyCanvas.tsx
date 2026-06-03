@@ -22,41 +22,49 @@ export const ScrollyCanvas = () => {
     if (typeof window === "undefined") return;
 
     const preloaded: HTMLImageElement[] = [];
-    let loadedCount = 0;
+    const loadedIndices = new Set<number>();
 
-    const handleImageLoad = () => {
-      loadedCount++;
-      const progress = Math.round((loadedCount / FRAME_COUNT) * 100);
-      setLoadProgress(progress);
-      if (loadedCount >= FRAME_COUNT) {
-        setIsLoaded(true);
-      }
-    };
+    // Safety fallback timeout: force page load if preloading stalls for more than 4 seconds
+    const safetyTimeout = setTimeout(() => {
+      console.warn("Preloading timed out. Forcing page load.");
+      setIsLoaded(true);
+    }, 4000);
 
-    const handleImageError = () => {
-      loadedCount++;
-      const progress = Math.round((loadedCount / FRAME_COUNT) * 100);
+    const recordLoad = (index: number) => {
+      if (loadedIndices.has(index)) return;
+      loadedIndices.add(index);
+      
+      const count = loadedIndices.size;
+      const progress = Math.round((count / FRAME_COUNT) * 100);
       setLoadProgress(progress);
-      if (loadedCount >= FRAME_COUNT) {
+      
+      if (count >= FRAME_COUNT) {
         setIsLoaded(true);
+        clearTimeout(safetyTimeout);
       }
     };
 
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new window.Image();
+      
+      // Attach handlers before setting src to ensure cached image hits are captured
+      img.onload = () => recordLoad(i);
+      img.onerror = () => recordLoad(i); // Count errors as resolved so page doesn't stall
+      
       const idx = (i + 1).toString().padStart(3, "0");
       img.src = `/sequence/ezgif-frame-${idx}.png`;
       
       if (img.complete) {
-        handleImageLoad();
-      } else {
-        img.onload = handleImageLoad;
-        img.onerror = handleImageError;
+        recordLoad(i);
       }
       preloaded.push(img);
     }
 
     setImages(preloaded);
+    
+    return () => {
+      clearTimeout(safetyTimeout);
+    };
   }, []);
 
   // Lock scroll bar until loading is complete

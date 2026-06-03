@@ -8,25 +8,25 @@ const skillGroups = [
     skills: ["UI/UX Design", "Design Systems", "Branding", "Iconography"]
   },
   {
-    category: "Tools",
-    skills: ["Figma", "Canva", "Photoshop", "CapCut"]
+    category: "Design Tools",
+    skills: ["Figma", "Canva", "Photoshop"]
   },
   {
-    category: "Domains",
-    skills: ["Creative Technology", "Systems Architecture", "Community Building"]
+    category: "AI Audio & Video",
+    skills: ["CapCut", "ElevenLabs (Voice)", "Suno AI BGM"]
   },
   {
-    category: "Marketing & AI",
-    skills: ["Digital Marketing", "AI Content Creation", "AI Prompting", "Audience Growth"]
+    category: "Domains & Strategy",
+    skills: ["Creative Technology", "AI Content Creation", "Digital Marketing", "Audience Growth"]
   }
 ];
 
 export const Skills = () => {
   return (
-    <section className="py-24 px-6 md:px-12 max-w-5xl mx-auto relative z-10">
+    <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto relative z-10">
       <h2 className="text-3xl md:text-5xl font-bold mb-16 text-[#FFFCF2] text-center">Core Expertise</h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
         {skillGroups.map((group, idx) => (
           <motion.div
             key={idx}
