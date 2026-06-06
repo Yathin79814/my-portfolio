@@ -2,54 +2,171 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, Briefcase, Shield, Calendar, ArrowRight } from "lucide-react";
+import {
+  Users,
+  Sparkles,
+  Zap,
+  Palette,
+  Layers,
+  Briefcase,
+  Shield,
+  Megaphone,
+  Camera,
+  Calendar,
+  ArrowRight
+} from "lucide-react";
 
-const experiences = [
-  {
-    role: "Founder & Creative Lead",
-    company: "@designpreneurss",
-    duration: "2023 - Present",
-    icon: Users,
-    short: "Creative Lead",
-    description: "Founded an educational design platform, conceptualizing and executing high-impact visual content strategies. Scaled an organic audience to 30,000+ followers by translating complex UI/UX principles into highly digestible, premium digital media."
-  },
-  {
-    role: "Placement Cell Coordinator",
-    company: "IIITDM Kancheepuram",
-    duration: "2024 - Present",
-    icon: Briefcase,
-    short: "Placement Lead",
-    description: "Orchestrated end-to-end communication and logistics between a talented student body and top-tier industry recruiters. Streamlined placement workflows, significantly improving recruiter engagement and institutional placement metrics."
-  },
-  {
-    role: "Senior Under Officer",
-    company: "National Cadet Corps (NCC)",
-    duration: "2022 - 2025",
-    icon: Shield,
-    short: "NCC SUO",
-    description: "Directed and trained large cadet contingents, enforcing strict disciplinary frameworks and operational excellence. Led cross-functional teams to execute major institutional events with zero logistical friction."
+const experiences = {
+  professional: [
+    {
+      role: "Founder & Creative Lead",
+      company: "@designpreneurss",
+      duration: "2020 - Present",
+      icon: Users,
+      short: "@designpreneurss",
+      description: "Founded and scaled an organic design community to 30,000+ followers on Instagram. Directing content strategy, producing high-impact UI/UX tutorials, and designing visual templates that teach design principles through engaging short-form media."
+    },
+    {
+      role: "Creative Design, AI Content & Digital Marketing Intern",
+      company: "Attacked AI",
+      duration: "Aug 2025 – Dec 2025",
+      icon: Sparkles,
+      short: "Attacked AI",
+      description: "Shot and edited high-converting reels/videos using CapCut, and produced AI-generated images/videos for daily marketing campaigns. Designed branded website banners and contributed to AI-based podcast and creative media production workflows."
+    },
+    {
+      role: "Digital Marketing Intern",
+      company: "EVtron Tech",
+      duration: "May 2025 – Aug 2025",
+      icon: Zap,
+      short: "EVtron Tech",
+      description: "Supported digital marketing and brand visibility campaigns for EV charging solutions. Managed content asset libraries and secured 2nd Place at the IBCN Innovation Challenge by delivering compelling visuals and pitch presentation designs."
+    },
+    {
+      role: "UI Visual Designer & Branding Lead Intern",
+      company: "Viberr",
+      duration: "May 2025 – Jul 2025",
+      icon: Palette,
+      short: "Viberr",
+      description: "Developed brand identity, UI graphics, and cohesive visual design systems for a digital social media platform. Created iconography and assets, collaborating with a fast-paced team to deliver high-quality design assets on tight timelines."
+    }
+  ],
+  campus: [
+    {
+      role: "Design Lead",
+      company: "Samgatha / Vashisht Fest",
+      duration: "2023 - Present",
+      icon: Layers,
+      short: "Samgatha Fest",
+      description: "Leading the design & media team for the annual college fests, creating promotional graphics, reels, and branding materials. Directing real-time event coverage and producing highly viewed behind-the-scenes video content."
+    },
+    {
+      role: "Student Coordinator",
+      company: "Placement Cell Coordinator",
+      duration: "2023 - Present",
+      icon: Briefcase,
+      short: "Placement Cell",
+      description: "Coordinating logistics and communications between recruiters and a student body of 200+. Organizing professional sessions and managing placement event coordination under tight timelines."
+    },
+    {
+      role: "Senior Under Officer (SUO)",
+      company: "National Cadet Corps (NCC)",
+      duration: "Nov 2022 – May 2025",
+      icon: Shield,
+      short: "NCC SUO",
+      description: "Commanded and mentored a unit of 52+ cadets, representing the institute at the national NCC EBSB camp. Led drills, training sessions, and institutional events to build discipline and leadership."
+    },
+    {
+      role: "Publicity Lead",
+      company: "SAVA Fest",
+      duration: "2024 - Present",
+      icon: Megaphone,
+      short: "SAVA Fest",
+      description: "Directing outreach and publicity campaigns for SAVARa across digital and on-campus platforms. Managed social media marketing, content strategy, and community engagement to drive event participation."
+    },
+    {
+      role: "Core Member",
+      company: "Photography Club — IMAGIX",
+      duration: "2022 - Present",
+      icon: Camera,
+      short: "IMAGIX Club",
+      description: "Providing extensive photography and videography coverage for college fests and institutional events. Managing lighting, framing, and post-shoot editing optimized for college social media channels."
+    }
+  ]
+};
+
+// Computes nodes along a right-facing semi-circular arc matching the design coordinates
+const getCoordinates = (count: number) => {
+  if (count <= 1) {
+    return [{ x: 190, y: 200, labelAlign: "right" as const }];
   }
-];
-
-// Coordinates representing nodes along a right-facing semi-circular arc
-// within a 240px wide by 400px tall bounding box.
-const nodeCoordinates = [
-  { x: 30, y: 40, labelAlign: "left" },    // Top Node
-  { x: 190, y: 200, labelAlign: "right" },  // Mid Node (curves furthest right)
-  { x: 30, y: 360, labelAlign: "left" }    // Bottom Node
-];
+  const coords = [];
+  for (let i = 0; i < count; i++) {
+    // Distribute y coordinates between 40 and 360
+    const y = 40 + i * (320 / (count - 1));
+    // Quadratic equation x = 190 - (y-200)^2 / 160
+    const x = 190 - Math.pow(y - 200, 2) / 160;
+    const labelAlign = x > 100 ? ("right" as const) : ("left" as const);
+    coords.push({ x: Math.round(x), y: Math.round(y), labelAlign });
+  }
+  return coords;
+};
 
 export const Experience = () => {
+  const [activeTab, setActiveTab] = useState<"professional" | "campus">("professional");
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const activeExp = experiences[activeIndex];
+  const activeList = experiences[activeTab];
+  const activeExp = activeList[activeIndex] || activeList[0];
   const ActiveIcon = activeExp.icon;
+  const coords = getCoordinates(activeList.length);
+
+  const handleTabChange = (tab: "professional" | "campus") => {
+    setActiveTab(tab);
+    setActiveIndex(0);
+  };
 
   return (
     <section id="experience" className="py-32 px-6 md:px-12 max-w-6xl mx-auto relative z-10">
-      <div className="mb-20 text-center md:text-left">
+      <div className="mb-12 text-center md:text-left">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">Experience</h2>
         <p className="text-[var(--color-secondary)] text-lg">Where I've delivered impact.</p>
+      </div>
+
+      {/* Category Tab Selector */}
+      <div className="flex justify-center mb-16 relative z-30">
+        <div className="flex bg-[#161616]/90 backdrop-blur-md border border-white/10 p-1.5 rounded-full relative shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+          <button
+            onClick={() => handleTabChange("professional")}
+            className={`relative px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold tracking-wider uppercase transition-colors duration-300 focus:outline-none ${
+              activeTab === "professional" ? "text-white" : "text-white/50 hover:text-white/80"
+            }`}
+          >
+            {activeTab === "professional" && (
+              <motion.div
+                layoutId="active-experience-tab"
+                className="absolute inset-0 bg-[var(--color-accent)] rounded-full -z-10 shadow-[0_0_15px_rgba(235,94,40,0.3)]"
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              />
+            )}
+            Professional Experience
+          </button>
+          <button
+            onClick={() => handleTabChange("campus")}
+            className={`relative px-6 py-2.5 rounded-full text-xs md:text-sm font-semibold tracking-wider uppercase transition-colors duration-300 focus:outline-none ${
+              activeTab === "campus" ? "text-white" : "text-white/50 hover:text-white/80"
+            }`}
+          >
+            {activeTab === "campus" && (
+              <motion.div
+                layoutId="active-experience-tab"
+                className="absolute inset-0 bg-[var(--color-accent)] rounded-full -z-10 shadow-[0_0_15px_rgba(235,94,40,0.3)]"
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              />
+            )}
+            Campus & Leadership
+          </button>
+        </div>
       </div>
 
       {/* Desktop Grid Layout (Semi-Circle Arc + Detail Card) */}
@@ -88,8 +205,8 @@ export const Experience = () => {
             className="absolute w-16 h-16 rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/30 blur-md pointer-events-none"
             style={{ x: -32, y: -32, left: 0, top: 0 }}
             animate={{
-              x: nodeCoordinates[activeIndex].x,
-              y: nodeCoordinates[activeIndex].y,
+              x: coords[activeIndex]?.x ?? 30,
+              y: coords[activeIndex]?.y ?? 40,
             }}
             transition={{ type: "spring", stiffness: 180, damping: 22 }}
           />
@@ -97,22 +214,22 @@ export const Experience = () => {
             className="absolute w-10 h-10 rounded-full border border-[var(--color-accent)] shadow-[0_0_15px_rgba(235,94,40,0.4)] pointer-events-none"
             style={{ x: -20, y: -20, left: 0, top: 0 }}
             animate={{
-              x: nodeCoordinates[activeIndex].x,
-              y: nodeCoordinates[activeIndex].y,
+              x: coords[activeIndex]?.x ?? 30,
+              y: coords[activeIndex]?.y ?? 40,
             }}
             transition={{ type: "spring", stiffness: 180, damping: 22 }}
           />
 
           {/* Interactive Node Buttons along the arc */}
-          {experiences.map((exp, idx) => {
+          {activeList.map((exp, idx) => {
             const Icon = exp.icon;
             const isActive = activeIndex === idx;
-            const coord = nodeCoordinates[idx];
+            const coord = coords[idx] || { x: 30, y: 40, labelAlign: "left" };
 
             return (
               <div
                 key={idx}
-                className="absolute"
+                className="absolute transition-all duration-500"
                 style={{
                   left: `${coord.x}px`,
                   top: `${coord.y}px`,
@@ -150,7 +267,7 @@ export const Experience = () => {
         <div className="col-span-7 min-h-[300px] flex items-center">
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeIndex}
+              key={`${activeTab}-${activeIndex}`}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
@@ -193,37 +310,44 @@ export const Experience = () => {
       </div>
 
       {/* Mobile Stacked Layout (Degrades gracefully on smaller screens) */}
-      <div className="md:hidden space-y-8">
-        {experiences.map((exp, idx) => {
-          const Icon = exp.icon;
-          return (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-white/[0.03] border border-white/10 p-8 rounded-2xl relative"
-            >
-              <div className="flex items-center justify-between mb-6">
-                <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/20 border border-[var(--color-accent)]/30 flex items-center justify-center text-[var(--color-accent)]">
-                  <Icon size={20} />
-                </div>
-                <span className="text-xs font-medium text-[var(--color-secondary)] bg-white/5 px-3 py-1 rounded-full border border-white/5">
-                  {exp.duration}
-                </span>
-              </div>
+      <div className="md:hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-8"
+          >
+            {activeList.map((exp, idx) => {
+              const Icon = exp.icon;
+              return (
+                <div
+                  key={idx}
+                  className="bg-white/[0.03] border border-white/10 p-8 rounded-2xl relative"
+                >
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/20 border border-[var(--color-accent)]/30 flex items-center justify-center text-[var(--color-accent)]">
+                      <Icon size={20} />
+                    </div>
+                    <span className="text-xs font-medium text-[var(--color-secondary)] bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                      {exp.duration}
+                    </span>
+                  </div>
 
-              <h3 className="text-2xl font-bold text-[#FFFCF2] mb-1">{exp.role}</h3>
-              <p className="text-sm font-semibold text-[var(--color-accent)] mb-4 uppercase tracking-wider">
-                {exp.company}
-              </p>
-              <p className="text-[var(--color-secondary)] leading-relaxed text-sm">
-                {exp.description}
-              </p>
-            </motion.div>
-          );
-        })}
+                  <h3 className="text-2xl font-bold text-[#FFFCF2] mb-1">{exp.role}</h3>
+                  <p className="text-sm font-semibold text-[var(--color-accent)] mb-4 uppercase tracking-wider">
+                    {exp.company}
+                  </p>
+                  <p className="text-[var(--color-secondary)] leading-relaxed text-sm">
+                    {exp.description}
+                  </p>
+                </div>
+              );
+            })}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

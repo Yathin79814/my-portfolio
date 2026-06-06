@@ -21,7 +21,7 @@ export const CTA = () => {
           </p>
           
           <a
-            href="mailto:hello@example.com"
+            href="mailto:damallayathin030@gmail.com"
             className="inline-block bg-[#FFFCF2] text-[#121212] font-semibold text-lg px-8 py-4 rounded-full hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(235,94,40,0.4)]"
           >
             Get in Touch
