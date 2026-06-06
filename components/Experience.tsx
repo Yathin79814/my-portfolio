@@ -70,7 +70,7 @@ const experiences: { professional: ExperienceItem[]; campus: ExperienceItem[] } 
       duration: "2023 - Present",
       icon: Layers,
       short: "Samgatha Fest",
-      description: "Leading the design & media team for the annual college fests, creating promotional graphics, reels, and branding materials. Directing real-time event coverage and producing highly viewed behind-the-scenes content."
+      description: "Led a team of designers to build the brand identity and media coverage for the annual fests, producing promotional assets, reels, and templates. I learned creative team direction, brand strategy alignment, and rapid asset pipeline management. This is useful for scaling visual design systems, managing design teams, and directing creative launches in tech startups."
     },
     {
       role: "Student Coordinator",
@@ -78,7 +78,7 @@ const experiences: { professional: ExperienceItem[]; campus: ExperienceItem[] } 
       duration: "2023 - Present",
       icon: Briefcase,
       short: "Placement Cell",
-      description: "Coordinating logistics and communications between recruiters and a student body of 200+. Organizing professional sessions and managing placement event coordination under tight timelines."
+      description: "Coordinated end-to-end recruitment logistics, stakeholder communications, and schedules for 200+ students and top recruiters. I learned client relations, business development, database management, and operational negotiation. This is useful for product management, managing complex stakeholders, and handling large-scale operational pipelines."
     },
     {
       role: "Senior Under Officer (SUO)",
@@ -86,7 +86,7 @@ const experiences: { professional: ExperienceItem[]; campus: ExperienceItem[] } 
       duration: "Nov 2022 – May 2025",
       icon: Shield,
       short: "NCC SUO",
-      description: "Commanded and mentored a unit of 52+ cadets, representing the institute at the national NCC EBSB camp. Led drills, training sessions, and institutional events to build discipline and leadership.",
+      description: "Commanded a unit of 52+ cadets, representing our campus at the national EBSB camp and receiving the 'Best Cadet' award. I built leadership accountability, operational discipline, and cross-cultural coordination. This is useful for managing large engineering squads, driving team accountability, and leading initiatives under high-pressure scenarios.",
       gallerySlug: "ncc"
     },
     {
@@ -95,7 +95,7 @@ const experiences: { professional: ExperienceItem[]; campus: ExperienceItem[] } 
       duration: "2024",
       icon: Globe,
       short: "CVIP 2024",
-      description: "Volunteered and organized the International Conference on Computer Vision and Image Processing (CVIP 2024) hosted at IIITDM Kancheepuram. Coordinated event operations under the guidance of Dr. Jagadeesh Kakarla and engaged with esteemed experts, including Prof. Umapada Pal and Prof. Vikram M. Gadre.",
+      description: "Organized event operations and hosted distinguished academic guests for the CVIP 2024 international conference under Dr. Jagadeesh Kakarla. I learned scientific conference administration, hospitality logistics, and executive communication. This is useful for managing corporate stakeholder relationships, large conventions, and professional client engagement.",
       gallerySlug: "cvip"
     },
     {
@@ -104,7 +104,7 @@ const experiences: { professional: ExperienceItem[]; campus: ExperienceItem[] } 
       duration: "2024 - Present",
       icon: Megaphone,
       short: "SAVA Fest",
-      description: "Directing outreach and publicity campaigns for SAVARa across digital and on-campus platforms. Managed social media marketing, content strategy, and community engagement to drive event participation.",
+      description: "Spearheaded digital publicity campaigns, reels content optimization, and marketing outreach strategies for SAVA Fest. I learned content funnel analytics, user growth marketing, and social community building. This is useful for executing user growth strategies, driving brand visibility, and organizing digital marketing campaigns.",
       gallerySlug: "savara"
     },
     {
@@ -113,7 +113,7 @@ const experiences: { professional: ExperienceItem[]; campus: ExperienceItem[] } 
       duration: "2022 - Present",
       icon: Camera,
       short: "IMAGIX Club",
-      description: "Providing extensive photography and videography coverage for college fests and institutional events. Managing lighting, framing, and post-shoot editing optimized for college social media channels.",
+      description: "Captured candid photography, motion showcases, and handled multi-camera lighting and framing for major college fests and events. I mastered visual storytelling, light grading, and rapid post-production using Lightroom and CapCut. This is useful for designing premium interfaces, branding materials, and marketing layouts with pixel-perfect accuracy.",
       gallerySlug: "imagix"
     }
   ]
