@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Users,
@@ -13,7 +13,10 @@ import {
   Megaphone,
   Camera,
   Calendar,
-  ArrowRight
+  ArrowRight,
+  X,
+  Image as ImageIcon,
+  Play
 } from "lucide-react";
 
 const experiences = {
@@ -24,7 +27,14 @@ const experiences = {
       duration: "2020 - Present",
       icon: Users,
       short: "@designpreneurss",
-      description: "Founded and scaled an organic design community to 30,000+ followers on Instagram. Directing content strategy, producing high-impact UI/UX tutorials, and designing visual templates that teach design principles through engaging short-form media."
+      description: "Founded and scaled an organic design community to 30,000+ followers on Instagram. Directing content strategy, producing high-impact UI/UX tutorials, and designing visual templates that teach design principles through engaging short-form media.",
+      media: [
+        { type: "image", src: "/achievements/instagram.png", alt: "Instagram Platform Showcase" },
+        { type: "image", src: "/pins/pin-1.png", alt: "Canva Tutorial Hack" },
+        { type: "image", src: "/pins/pin-2.png", alt: "Photoshop Design Tutorial" },
+        { type: "image", src: "/pins/pin-3.png", alt: "UI Design Tip Carousel" },
+        { type: "image", src: "/pins/pin-4.png", alt: "UX Architecture Tutorial" }
+      ]
     },
     {
       role: "Creative Design, AI Content & Digital Marketing Intern",
@@ -32,7 +42,11 @@ const experiences = {
       duration: "Aug 2025 – Dec 2025",
       icon: Sparkles,
       short: "Attacked AI",
-      description: "Shot and edited high-converting reels/videos using CapCut, and produced AI-generated images/videos for daily marketing campaigns. Designed branded website banners and contributed to AI-based podcast and creative media production workflows."
+      description: "Shot and edited high-converting reels/videos using CapCut, and produced AI-generated images/videos for daily marketing campaigns. Designed branded website banners and contributed to AI-based podcast and creative media production workflows.",
+      media: [
+        { type: "image", src: "/experience/attacked_ai.png", alt: "AI Generated Brand Concept" },
+        { type: "video", src: "/videos/Ai_shortfilm.mp4", alt: "AI Cinematic Narrative Short" }
+      ]
     },
     {
       role: "Digital Marketing Intern",
@@ -40,7 +54,11 @@ const experiences = {
       duration: "May 2025 – Aug 2025",
       icon: Zap,
       short: "EVtron Tech",
-      description: "Supported digital marketing and brand visibility campaigns for EV charging solutions. Managed content asset libraries and secured 2nd Place at the IBCN Innovation Challenge by delivering compelling visuals and pitch presentation designs."
+      description: "Supported digital marketing and brand visibility campaigns for EV charging solutions. Managed content asset libraries and secured 2nd Place at the IBCN Innovation Challenge by delivering compelling visuals and pitch presentation designs.",
+      media: [
+        { type: "image", src: "/experience/evtron.png", alt: "EVtron Branding Board" },
+        { type: "video", src: "/achievements/ibcn.mp4", alt: "IBCN Innovation Pitch Presentation" }
+      ]
     },
     {
       role: "UI Visual Designer & Branding Lead Intern",
@@ -48,7 +66,10 @@ const experiences = {
       duration: "May 2025 – Jul 2025",
       icon: Palette,
       short: "Viberr",
-      description: "Developed brand identity, UI graphics, and cohesive visual design systems for a digital social media platform. Created iconography and assets, collaborating with a fast-paced team to deliver high-quality design assets on tight timelines."
+      description: "Developed brand identity, UI graphics, and cohesive visual design systems for a digital social media platform. Created iconography and assets, collaborating with a fast-paced team to deliver high-quality design assets on tight timelines.",
+      media: [
+        { type: "image", src: "/experience/viberr.png", alt: "Viberr Social Media UI Designs" }
+      ]
     }
   ],
   campus: [
@@ -58,7 +79,10 @@ const experiences = {
       duration: "2023 - Present",
       icon: Layers,
       short: "Samgatha Fest",
-      description: "Leading the design & media team for the annual college fests, creating promotional graphics, reels, and branding materials. Directing real-time event coverage and producing highly viewed behind-the-scenes video content."
+      description: "Leading the design & media team for the annual college fests, creating promotional graphics, reels, and branding materials. Directing real-time event coverage and producing highly viewed behind-the-scenes video content.",
+      media: [
+        { type: "image", src: "/experience/samgatha.png", alt: "Samgatha Cultural Fest Branding" }
+      ]
     },
     {
       role: "Student Coordinator",
@@ -66,7 +90,10 @@ const experiences = {
       duration: "2023 - Present",
       icon: Briefcase,
       short: "Placement Cell",
-      description: "Coordinating logistics and communications between recruiters and a student body of 200+. Organizing professional sessions and managing placement event coordination under tight timelines."
+      description: "Coordinating logistics and communications between recruiters and a student body of 200+. Organizing professional sessions and managing placement event coordination under tight timelines.",
+      media: [
+        { type: "image", src: "/experience/placement.png", alt: "Campus Recruitment drive visual layout" }
+      ]
     },
     {
       role: "Senior Under Officer (SUO)",
@@ -74,7 +101,10 @@ const experiences = {
       duration: "Nov 2022 – May 2025",
       icon: Shield,
       short: "NCC SUO",
-      description: "Commanded and mentored a unit of 52+ cadets, representing the institute at the national NCC EBSB camp. Led drills, training sessions, and institutional events to build discipline and leadership."
+      description: "Commanded and mentored a unit of 52+ cadets, representing the institute at the national NCC EBSB camp. Led drills, training sessions, and institutional events to build discipline and leadership.",
+      media: [
+        { type: "image", src: "/achievements/ncc.jpg", alt: "NCC Leadership contingent" }
+      ]
     },
     {
       role: "Publicity Lead",
@@ -82,7 +112,10 @@ const experiences = {
       duration: "2024 - Present",
       icon: Megaphone,
       short: "SAVA Fest",
-      description: "Directing outreach and publicity campaigns for SAVARa across digital and on-campus platforms. Managed social media marketing, content strategy, and community engagement to drive event participation."
+      description: "Directing outreach and publicity campaigns for SAVARa across digital and on-campus platforms. Managed social media marketing, content strategy, and community engagement to drive event participation.",
+      media: [
+        { type: "video", src: "/videos/Savara vvAi edit.mp4", alt: "SAVA Fest Publicity Video" }
+      ]
     },
     {
       role: "Core Member",
@@ -90,7 +123,10 @@ const experiences = {
       duration: "2022 - Present",
       icon: Camera,
       short: "IMAGIX Club",
-      description: "Providing extensive photography and videography coverage for college fests and institutional events. Managing lighting, framing, and post-shoot editing optimized for college social media channels."
+      description: "Providing extensive photography and videography coverage for college fests and institutional events. Managing lighting, framing, and post-shoot editing optimized for college social media channels.",
+      media: [
+        { type: "image", src: "/experience/photography.png", alt: "Photography Lens Reflection Bokeh Shot" }
+      ]
     }
   ]
 };
@@ -115,6 +151,8 @@ const getCoordinates = (count: number) => {
 export const Experience = () => {
   const [activeTab, setActiveTab] = useState<"professional" | "campus">("professional");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedExpForGallery, setSelectedExpForGallery] = useState<any | null>(null);
+  const [lightboxMedia, setLightboxMedia] = useState<any | null>(null);
 
   const activeList = experiences[activeTab];
   const activeExp = activeList[activeIndex] || activeList[0];
@@ -125,6 +163,18 @@ export const Experience = () => {
     setActiveTab(tab);
     setActiveIndex(0);
   };
+
+  // Lock body scroll when media gallery or lightbox is open
+  useEffect(() => {
+    if (selectedExpForGallery || lightboxMedia) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedExpForGallery, lightboxMedia]);
 
   return (
     <section id="experience" className="py-32 px-6 md:px-12 max-w-6xl mx-auto relative z-10">
@@ -300,8 +350,17 @@ export const Experience = () => {
                   {activeExp.description}
                 </p>
 
-                <div className="flex items-center gap-2 text-xs font-semibold tracking-widest text-[var(--color-accent)] uppercase group-hover:translate-x-1 transition-transform pt-4 select-none">
-                  Active Milestone <ArrowRight size={14} />
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/5">
+                  <button
+                    onClick={() => setSelectedExpForGallery(activeExp)}
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 text-xs font-semibold uppercase tracking-wider text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(235,94,40,0.05)] cursor-pointer"
+                  >
+                    <ImageIcon size={14} /> View Project Media & Photos
+                  </button>
+
+                  <div className="flex items-center gap-2 text-xs font-semibold tracking-widest text-[var(--color-accent)] uppercase group-hover:translate-x-1 transition-transform select-none">
+                    Active Milestone <ArrowRight size={14} />
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -340,15 +399,165 @@ export const Experience = () => {
                   <p className="text-sm font-semibold text-[var(--color-accent)] mb-4 uppercase tracking-wider">
                     {exp.company}
                   </p>
-                  <p className="text-[var(--color-secondary)] leading-relaxed text-sm">
+                  <p className="text-[var(--color-secondary)] leading-relaxed text-sm mb-6">
                     {exp.description}
                   </p>
+
+                  <button
+                    onClick={() => setSelectedExpForGallery(exp)}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 text-xs font-semibold uppercase tracking-wider text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-white transition-all duration-300 cursor-pointer"
+                  >
+                    <ImageIcon size={14} /> View Media & Photos
+                  </button>
                 </div>
               );
             })}
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {/* Modern High-Fidelity Collage Gallery Modal */}
+      <AnimatePresence>
+        {selectedExpForGallery && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-2xl overflow-y-auto"
+          >
+            {/* Inner Content Box */}
+            <motion.div
+              initial={{ scale: 0.95, y: 15 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 15 }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className="relative w-full max-w-5xl bg-[#121212]/80 border border-white/10 p-6 md:p-10 rounded-3xl shadow-2xl flex flex-col gap-8 my-auto"
+            >
+              {/* Header */}
+              <div className="flex justify-between items-start border-b border-white/10 pb-6">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-[#FFFCF2] mb-1">
+                    {selectedExpForGallery.role}
+                  </h3>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-[var(--color-accent)]">
+                    {selectedExpForGallery.company} · Media Gallery
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedExpForGallery(null)}
+                  className="text-white/50 hover:text-white bg-white/5 border border-white/10 p-2.5 rounded-full hover:scale-105 transition-all duration-300 focus:outline-none cursor-pointer"
+                  aria-label="Close Gallery"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Collage Grid Layout */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                {selectedExpForGallery.media?.map((item: any, idx: number) => {
+                  const isSingle = selectedExpForGallery.media.length === 1;
+                  const isDouble = selectedExpForGallery.media.length === 2;
+                  
+                  // Premium Pinterest/Masonry dynamic sizing
+                  let gridClasses = "col-span-1 aspect-video";
+                  if (isSingle) {
+                    gridClasses = "col-span-1 sm:col-span-2 md:col-span-3 aspect-[16/10] max-w-3xl mx-auto w-full";
+                  } else if (isDouble) {
+                    gridClasses = "col-span-1 sm:col-span-1 md:col-span-1 aspect-square";
+                  } else if (idx === 0) {
+                    gridClasses = "col-span-1 sm:col-span-2 md:col-span-2 md:row-span-2 aspect-[4/3] md:aspect-video";
+                  }
+
+                  return (
+                    <motion.div
+                      key={idx}
+                      whileHover={{ scale: 1.02, y: -4 }}
+                      onClick={() => setLightboxMedia(item)}
+                      className={`group relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.02] shadow-lg cursor-pointer ${gridClasses}`}
+                    >
+                      {item.type === "image" ? (
+                        <img
+                          src={item.src}
+                          alt={item.alt}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="relative w-full h-full">
+                          <video
+                            src={item.src}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md border border-white/10 px-2 py-0.5 rounded text-[8px] font-semibold uppercase tracking-wider text-[var(--color-accent)] flex items-center gap-1 shadow-md">
+                            <Play size={8} className="fill-current" /> Video
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Hover Overlay */}
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span className="text-white text-xs font-semibold tracking-wider uppercase bg-black/60 px-4 py-2 rounded-full border border-white/10 backdrop-blur-md transform scale-90 group-hover:scale-100 transition-all duration-300">
+                          Expand Preview
+                        </span>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Lightbox Mode Viewer */}
+      <AnimatePresence>
+        {lightboxMedia && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-3xl p-4 md:p-8"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setLightboxMedia(null)}
+              className="absolute top-6 right-6 text-white/50 hover:text-white bg-white/5 border border-white/10 p-3 rounded-full hover:scale-105 transition-all duration-300 focus:outline-none cursor-pointer z-[210]"
+              aria-label="Close Lightbox"
+            >
+              <X size={20} />
+            </button>
+
+            {/* Media Container */}
+            <motion.div
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              className="max-w-5xl max-h-[85vh] w-full h-full flex items-center justify-center rounded-2xl overflow-hidden border border-white/5 shadow-2xl relative"
+            >
+              {lightboxMedia.type === "image" ? (
+                <img
+                  src={lightboxMedia.src}
+                  alt={lightboxMedia.alt}
+                  className="max-w-full max-h-full object-contain select-none"
+                />
+              ) : (
+                <video
+                  src={lightboxMedia.src}
+                  controls
+                  autoPlay
+                  loop
+                  className="max-w-full max-h-full object-contain"
+                />
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
