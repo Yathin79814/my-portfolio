@@ -65,11 +65,10 @@ export default async function GalleryPage({ params }: GalleryPageProps) {
   }
 
   return (
-    <main className="relative min-h-screen bg-[#121212] text-[#FFFCF2] py-20 px-6 md:px-12 selection:bg-[var(--color-accent)] selection:text-white overflow-hidden">
+    <main className="relative min-h-screen bg-[#121212] text-[#FFFCF2] py-20 px-6 md:px-12 selection:bg-[var(--color-accent)] selection:text-white overflow-hidden gallery-page">
       {/* Background radial glowing effects */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-[var(--color-accent)] opacity-[0.03] blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-[var(--color-accent)] opacity-[0.02] blur-[150px] pointer-events-none" />
-      <div className="noise-bg" />
 
       <GalleryClient 
         category={category} 

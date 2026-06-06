@@ -46,3 +46,9 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-accent);
 }
+
+/* Hide global noise background when on a gallery page */
+body:has(.gallery-page) .noise-bg {
+  display: none !important;
+}
+
