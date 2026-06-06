@@ -19,7 +19,7 @@ const achievements = [
     icon: Shield,
     description: "Earned the rank of Senior Under Officer in the NCC, leading major operations and training large contingents.",
     mediaType: "image",
-    mediaSrc: "/achievements/ncc.png",
+    mediaSrc: "/achievements/ncc.jpg",
     mediaAlt: "NCC Leadership Photo",
   },
   {
