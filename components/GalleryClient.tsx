@@ -72,6 +72,12 @@ export const GalleryClient = ({ category, files, meta }: GalleryClientProps) => 
       <div className="mb-12">
         <Link
           href="/#experience"
+          onClick={(e) => {
+            if (typeof window !== "undefined" && window.history.length > 1) {
+              e.preventDefault();
+              window.history.back();
+            }
+          }}
           className="inline-flex items-center gap-2 text-white/50 hover:text-[var(--color-accent)] transition-colors text-sm font-semibold tracking-wider uppercase group focus:outline-none"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />

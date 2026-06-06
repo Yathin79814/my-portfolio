@@ -7,12 +7,14 @@ import { FRAME_COUNT } from "@/lib/preloadImages";
 import { useMotionValueEvent, motion, AnimatePresence } from "framer-motion";
 import { Overlay } from "./Overlay";
 
+let globalLoaded = false;
+
 export const ScrollyCanvas = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [loadProgress, setLoadProgress] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(globalLoaded);
   const [firstFrameDrawn, setFirstFrameDrawn] = useState(false);
   
   const { scrollYProgress, frameIndex } = useScrollFrames(containerRef, FRAME_COUNT);
@@ -21,6 +23,12 @@ export const ScrollyCanvas = () => {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    if (globalLoaded) {
+      setIsLoaded(true);
+      setLoadProgress(100);
+      return;
+    }
+
     const preloaded: HTMLImageElement[] = [];
     const loadedIndices = new Set<number>();
 
@@ -28,6 +36,7 @@ export const ScrollyCanvas = () => {
     const safetyTimeout = setTimeout(() => {
       console.warn("Preloading timed out. Forcing page load.");
       setIsLoaded(true);
+      globalLoaded = true;
     }, 4000);
 
     const recordLoad = (index: number) => {
@@ -40,6 +49,7 @@ export const ScrollyCanvas = () => {
       
       if (count >= FRAME_COUNT) {
         setIsLoaded(true);
+        globalLoaded = true;
         clearTimeout(safetyTimeout);
       }
     };
