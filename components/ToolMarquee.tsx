@@ -1,15 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-import { SiCanva, SiGooglegemini, SiAnthropic, SiOpenai, SiGoogle } from "react-icons/si";
-
-const PremiereProIcon = (props: any) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M0 0h24v24H0V0z" fill="none" />
-    <path d="M2.5 2.5h19v19h-19v-19zm4 6h4.5c2.2 0 3.5 1.2 3.5 3s-1.3 3-3.5 3H8.5v3h-2v-9zm2 1.5v3h2.5c1 0 1.5-.5 1.5-1.5S11.5 10 10.5 10h-2zm6 3.5v5h-2v-8h1.8l.2 1c.4-.8 1.2-1.2 2-1.2v2c-.8 0-1.5.3-2 1.2z" />
-  </svg>
-);
+import {
+  SiFigma,
+  SiCanva,
+  SiOpenai,
+  SiGooglegemini,
+  SiAnthropic,
+  SiNotion,
+  SiInstagram,
+  SiPinterest,
+  SiYoutube
+} from "react-icons/si";
+import { TbBrandAdobePhotoshop, TbBrandAdobePremier } from "react-icons/tb";
 
 const CapCutIcon = (props: any) => (
   <svg viewBox="0 0 512 512" fill="currentColor" {...props}>
@@ -20,45 +23,60 @@ const CapCutIcon = (props: any) => (
   </svg>
 );
 
+const LightroomIcon = (props: any) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <path d="M7 8v8h4" />
+    <path d="M14 11v5" />
+    <path d="M14 12.5c0.5 -1 1.5 -1.5 2 -1" />
+  </svg>
+);
+
 const tools = [
+  { name: "Figma", Icon: SiFigma },
+  { name: "Photoshop", Icon: TbBrandAdobePhotoshop },
+  { name: "Lightroom", Icon: LightroomIcon },
+  { name: "Premiere Pro", Icon: TbBrandAdobePremier },
   { name: "Canva", Icon: SiCanva },
   { name: "CapCut", Icon: CapCutIcon },
+  { name: "ChatGPT", Icon: SiOpenai },
   { name: "Gemini", Icon: SiGooglegemini },
   { name: "Claude", Icon: SiAnthropic },
-  { name: "Veo3", Icon: SiGoogle },
-  { name: "ChatGPT", Icon: SiOpenai },
-  { name: "Premiere Pro", Icon: PremiereProIcon }
+  { name: "Notion", Icon: SiNotion },
+  { name: "Instagram", Icon: SiInstagram },
+  { name: "Pinterest", Icon: SiPinterest },
+  { name: "YouTube", Icon: SiYoutube }
 ];
 
 export const ToolMarquee = () => {
   return (
-    <div className="py-12 w-full overflow-hidden relative border-y border-white/5 bg-white/[0.02]">
+    <div className="py-5 w-full overflow-hidden relative border-y border-white/5 bg-white/[0.01] backdrop-blur-sm">
       {/* Gradient fades on the edges for smooth entry/exit */}
       <div className="absolute inset-y-0 left-0 w-16 md:w-48 bg-gradient-to-r from-[#121212] to-transparent z-10 pointer-events-none" />
       <div className="absolute inset-y-0 right-0 w-16 md:w-48 bg-gradient-to-l from-[#121212] to-transparent z-10 pointer-events-none" />
 
       <div className="flex w-max">
         <motion.div
-          className="flex space-x-16 md:space-x-32 px-8 md:px-16 items-center"
+          className="flex space-x-12 md:space-x-20 px-6 md:px-12 items-center"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             ease: "linear",
-            duration: 35,
+            duration: 32, // Controlled smooth speed for infinite scroll
             repeat: Infinity,
           }}
         >
-          {/* Repeat tools to create a seamless infinite scroll */}
-          {[...tools, ...tools, ...tools, ...tools, ...tools].map((tool, idx) => {
+          {/* Repeat tools multiple times to create a seamless infinite scroll */}
+          {[...tools, ...tools, ...tools, ...tools].map((tool, idx) => {
             const IconComponent = tool.Icon;
             return (
               <div 
                 key={idx} 
-                className="group relative flex flex-col items-center justify-center"
+                className="group relative flex flex-col items-center justify-center px-4"
               >
                 <IconComponent 
-                  className="w-10 h-10 md:w-14 md:h-14 text-white/50 transition-all duration-300 group-hover:text-[var(--color-accent)] group-hover:scale-[1.15] group-hover:opacity-100" 
+                  className="w-7 h-7 md:w-8 md:h-8 text-white/40 transition-all duration-300 group-hover:text-[var(--color-accent)] group-hover:scale-115 group-hover:opacity-100" 
                 />
-                <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-all duration-300 text-xs md:text-sm font-medium text-white/90 whitespace-nowrap tracking-wide">
+                <span className="absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-all duration-300 text-[10px] md:text-xs font-semibold text-white/90 whitespace-nowrap tracking-wider uppercase">
                   {tool.name}
                 </span>
               </div>
