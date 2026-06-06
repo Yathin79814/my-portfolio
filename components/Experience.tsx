@@ -330,7 +330,7 @@ export const Experience = () => {
                       href={`/gallery/${activeExp.gallerySlug}`}
                       className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#121212] bg-[var(--color-accent)] hover:bg-[#FFFCF2] hover:shadow-[0_0_20px_rgba(235,94,40,0.4)] transition-all py-3.5 px-7 rounded-full select-none cursor-pointer"
                     >
-                      View Project Gallery <ArrowRight size={14} />
+                      Gallery <ArrowRight size={14} />
                     </Link>
                   ) : (
                     <div className="flex items-center gap-2 text-xs font-semibold tracking-widest text-[var(--color-accent)] uppercase group-hover:translate-x-1 transition-transform select-none">
@@ -385,7 +385,7 @@ export const Experience = () => {
                         href={`/gallery/${exp.gallerySlug}`}
                         className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-[#121212] bg-[var(--color-accent)] hover:bg-[#FFFCF2] transition-all py-3 px-6 rounded-full"
                       >
-                        View Project Gallery <ArrowRight size={12} />
+                        Gallery <ArrowRight size={12} />
                       </Link>
                     </div>
                   )}
