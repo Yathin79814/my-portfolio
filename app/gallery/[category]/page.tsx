@@ -24,6 +24,11 @@ const categoryMeta: Record<string, { title: string; subtitle: string; descriptio
     title: "IMAGIX Photography",
     subtitle: "On-Ground Event & Fest Coverage",
     description: "Candid event capture, motion highlights, lighting tests, and festival photography produced for campus event coverages.",
+  },
+  cvip: {
+    title: "CVIP 2024 Conference",
+    subtitle: "Volunteering & Organizing Committee",
+    description: "Organized and volunteered for the International Conference on Computer Vision and Image Processing (CVIP 2024) hosted at IIITDM Kancheepuram. Coordinated behind-the-scenes operations and interacted with renowned experts, including Prof. Umapada Pal (ISI Kolkata) and Prof. Vikram M. Gadre (IIT Bombay) under the guidance of Dr. Jagadeesh Kakarla.",
   }
 };
 
@@ -31,7 +36,8 @@ export function generateStaticParams() {
   return [
     { category: "ncc" },
     { category: "savara" },
-    { category: "imagix" }
+    { category: "imagix" },
+    { category: "cvip" }
   ];
 }
 

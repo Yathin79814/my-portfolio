@@ -14,7 +14,8 @@ import {
   Megaphone,
   Camera,
   Calendar,
-  ArrowRight
+  ArrowRight,
+  Globe
 } from "lucide-react";
 
 interface ExperienceItem {
@@ -87,6 +88,15 @@ const experiences: { professional: ExperienceItem[]; campus: ExperienceItem[] } 
       short: "NCC SUO",
       description: "Commanded and mentored a unit of 52+ cadets, representing the institute at the national NCC EBSB camp. Led drills, training sessions, and institutional events to build discipline and leadership.",
       gallerySlug: "ncc"
+    },
+    {
+      role: "Volunteering & Organizing Committee",
+      company: "CVIP 2024 (International Conference)",
+      duration: "2024",
+      icon: Globe,
+      short: "CVIP 2024",
+      description: "Volunteered and organized the International Conference on Computer Vision and Image Processing (CVIP 2024) hosted at IIITDM Kancheepuram. Coordinated event operations under the guidance of Dr. Jagadeesh Kakarla and engaged with esteemed experts, including Prof. Umapada Pal and Prof. Vikram M. Gadre.",
+      gallerySlug: "cvip"
     },
     {
       role: "Publicity Lead",
