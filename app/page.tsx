@@ -41,9 +41,9 @@ export default async function Home() {
         <PinterestAds />
         <About />
         <Experience />
-        <CombinedGallery files={galleryFiles} />
         <Achievements />
         <Skills />
+        <CombinedGallery files={galleryFiles} />
         <CTA />
       </div>
     </main>

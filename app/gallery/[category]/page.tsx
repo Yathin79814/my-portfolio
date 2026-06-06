@@ -13,22 +13,22 @@ const categoryMeta: Record<string, { title: string; subtitle: string; descriptio
   ncc: {
     title: "NCC Leadership",
     subtitle: "National Cadet Corps (SUO)",
-    description: "Visual highlights of contingent operations, national camps (EBSB), ceremonial drills, and training sessions commanding 52+ cadets.",
+    description: "Commanded a unit of 52+ cadets, representing our campus at the national EBSB camp and receiving the 'Best Cadet' award. I learned contingent team building, drills coordination, and cross-cultural communication. This leadership role is useful in managing large engineering teams, coordinating delegation, and building strict operational discipline under high-pressure environments.",
   },
   savara: {
     title: "Savara Publicity",
     subtitle: "Outreach & Event Branding",
-    description: "Creative visual campaigns, promotional highlights, and marketing materials engineered for SAVA Fest and SAVARa.",
+    description: "Spearheaded publicity campaigns and social media outreach for SAVA Fest across digital channels. I learned digital campaign design, growth marketing, scheduling automation, and audience reach analytics. This experience is useful for driving product marketing, planning brand visibility strategies, and capturing audience growth.",
   },
   imagix: {
     title: "IMAGIX Photography",
     subtitle: "On-Ground Event & Fest Coverage",
-    description: "Candid event capture, motion highlights, lighting tests, and festival photography produced for campus event coverages.",
+    description: "Captured and edited event candids, highlights, and promotional videos for college fests and institutional platforms. I mastered lighting, composition, creative direction, and rapid editing using CapCut and Adobe tools. This is useful for creating premium visual branding, high-end content systems, and pixel-perfect UI designs.",
   },
   cvip: {
     title: "CVIP 2024 Conference",
     subtitle: "Volunteering & Organizing Committee",
-    description: "Organized and volunteered for the International Conference on Computer Vision and Image Processing (CVIP 2024) hosted at IIITDM Kancheepuram. Coordinated behind-the-scenes operations and interacted with renowned experts, including Prof. Umapada Pal (ISI Kolkata) and Prof. Vikram M. Gadre (IIT Bombay) under the guidance of Dr. Jagadeesh Kakarla.",
+    description: "Organized logistics and coordinated operations for the International Conference on Computer Vision and Image Processing hosted at IIITDM. Under Dr. Jagadeesh Kakarla's guidance, I hosted distinguished leaders like Prof. Umapada Pal and Prof. Vikram M. Gadre. I learned scientific event coordination, hospitality logistics, and executive communication. This is useful for stakeholder relations and corporate event management.",
   }
 };
 
