@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Home, User, Briefcase, Layers, Mail, FileText, Play, TrendingUp } from "lucide-react";
+import { Home, User, Briefcase, Layers, Mail, FileText, Play, TrendingUp, Image } from "lucide-react";
 
 const navItems = [
   { id: "home", label: "Home", icon: Home },
@@ -11,6 +11,7 @@ const navItems = [
   { id: "marketing", label: "Marketing", icon: TrendingUp },
   { id: "about", label: "About", icon: User },
   { id: "experience", label: "Experience", icon: Briefcase },
+  { id: "gallery", label: "Gallery", icon: Image },
   { id: "contact", label: "Contact", icon: Mail },
 ];
 
